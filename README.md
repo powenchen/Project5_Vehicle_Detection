@@ -39,6 +39,8 @@ Here is an example using the `HLS` color space and HOG parameters of `orientatio
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters and test the accuracy using 20% of images as test set. Here's the result:
+
+
 | ColorSpace 	| orientation 	| pix_per_cells | cell_per_block | accuracy(%) 		| 
 |:-------------:|:-------------:|:-------------:|:-------------: |:----------------:| 
 | RGB			| 9 			| 4				| 2				 | 96.6%			|
