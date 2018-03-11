@@ -9,8 +9,19 @@ from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
 import glob
 
+from sklearn.preprocessing import StandardScaler
 
-def featureExtraction(image,color_space=cv2.COLOR_BGR2HLS,orient=9,pix_per_cell = 8, cell_per_block=2):
+def color_hist(img, nbins=32, bins_range=(0, 256)):
+	# Compute the histogram of the color channels separately
+	channel1_hist = np.histogram(img[:,:,0], bins=nbins, range=bins_range)
+	channel2_hist = np.histogram(img[:,:,1], bins=nbins, range=bins_range)
+	channel3_hist = np.histogram(img[:,:,2], bins=nbins, range=bins_range)
+	# Concatenate the histograms into a single feature vector
+	hist_features = np.concatenate((channel1_hist[0], channel2_hist[0], channel3_hist[0]))
+	# Return the individual histograms, bin_centers and feature vector
+	return hist_features
+
+def featureExtraction(image,color_space=cv2.COLOR_BGR2YCrCb,orient=9,pix_per_cell = 8, cell_per_block=2):
 	image = cv2.cvtColor(image, color_space)
 	channel1 = image[:,:,0]
 	channel2 = image[:,:,1]
@@ -37,10 +48,17 @@ def featureExtraction(image,color_space=cv2.COLOR_BGR2HLS,orient=9,pix_per_cell 
 
 	hog_features = np.hstack((np.ravel(hog_features1),np.ravel(hog_features2),np.ravel(hog_features3)))
 
+	# Apply bin_spatial() to get spatial color features
+	spatial_features = np.ravel(cv2.resize(image, (32,32)))
+	# Apply color_hist() 
+	hist_features = color_hist(image, nbins=32, bins_range=(0,256))
+
+	hog_features = np.concatenate((spatial_features,hist_features, hog_features))
+
 	return hog_features
 
 
-def featureList(image_names,color_space=cv2.COLOR_BGR2HLS,orient=9,pix_per_cell = 8, cell_per_block=2):
+def featureList(image_names,color_space=cv2.COLOR_BGR2YCrCb,orient=9,pix_per_cell = 8, cell_per_block=2):
 	hog_feature_list = []
 	for image_name in image_names:
 		if image_name.endswith(".png") or file.endswith(".jpg"):
@@ -52,7 +70,7 @@ def featureList(image_names,color_space=cv2.COLOR_BGR2HLS,orient=9,pix_per_cell 
 
 
 def main():
-	color_space,orientation,pix_per_cell = cv2.COLOR_BGR2HLS, 9, 8
+	color_space,orientation,pix_per_cell = cv2.COLOR_BGR2YCrCb, 9, 8
 	
 	car_image_names = glob.glob('vehicles/**/*.png')
 	hog_feature_list1 = featureList(car_image_names,color_space,orientation,pix_per_cell)
@@ -68,8 +86,18 @@ def main():
 	answer_vec = np.hstack((answer_vec1,answer_vec2))
 
 
+	X_scaler = StandardScaler().fit(hog_feature_list)
+
+
+
+	X_scaler_file = open("X_scaler.pickle",'wb')
+	pickle.dump(X_scaler,X_scaler_file)
+
+	hog_feature_list_scaled = X_scaler.transform(hog_feature_list)
+
+
 	rand_state = np.random.randint(0, 100)
-	X_train, X_test, y_train, y_test = train_test_split(hog_feature_list, answer_vec, test_size=0.2, random_state=rand_state)
+	X_train, X_test, y_train, y_test = train_test_split(hog_feature_list_scaled, answer_vec, test_size=0.2, random_state=rand_state)
 
 	svc = LinearSVC()
 	svc.fit(X_train, y_train)
