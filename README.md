@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 [image3]: ./output_images/03.png
 [image4]: ./output_images/04.png
 [image5]: ./output_images/05.png
-[image6]: ./output_images/06.png
+[image6]: ./output_images/10.png
 [video1]: ./project_video.mp4
 
 ### Histogram of Oriented Gradients (HOG)
@@ -118,6 +118,7 @@ Here's an image shows the sliding windows in my system:
 Ultimately I searched on HLS 3-channel HOG features, which provided a nice result.  Here are some example images:
 
 ![alt text][image4]
+![alt text][image5]
 
 I also tuned the sliding window size and overlapping value to get a balance between computational complexity and accuracy(if we use more sliding windows, the accuracy will increase as well as the time spent on computation)
 
@@ -137,7 +138,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ### Here are six frames, their corresponding heatmaps, label images and the resulting bounding boxes:
 
-![alt text][image5]
+![alt text][image6]
 
 
 
