@@ -31,7 +31,7 @@ I started by reading in all the `vehicle` and `non-vehicle` images.  Here are ex
 
 I defined the feature extraction process in 'featureExtraction()', it starts with converting the image to HLS color space, after this , it use the hog() function provided by skimage to extract the hog features of an image
 
-Here is an example using the `HLS` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+Here is an example using the `HLS` color space and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
 
 ![alt text][image2]
@@ -62,7 +62,7 @@ I tried various combinations of parameters and test the accuracy using 20% of im
 | YCrCb			| 11 			| 8				| 2				 | 98.1%			|
 | YCrCb			| 11 			| 12			| 2				 | 95.6%			|
 | HLS			| 9 			| 4				| 2				 | 96.7%			|
-| HLS			| 9 			| 8				| 2				 | 96.8%			|
+| HLS			| 9 			| 8				| 2				 | 98.7%			|
 | HLS			| 9 			| 12			| 2				 | 98.1%			|
 | HLS			| 10 			| 4				| 2				 | 97.2%			|
 | HLS			| 10			| 8				| 2				 | 96.2%			|
@@ -80,7 +80,7 @@ I tried various combinations of parameters and test the accuracy using 20% of im
 | LUV			| 11 			| 8				| 2				 | 97.1%			|
 | LUV			| 11 			| 12			| 2				 | 97.5%			|
 
-Based on the accuracy and the size of the feature vector, I chose HLS color space, orientation = 11, pix_per_cells = 12 and cell_per_block = 2. 
+Based on the accuracy and the size of the feature vector, I chose HLS color space, orientation = 9, pix_per_cells = 9 and cell_per_block = 2. 
 
 #### 3. How I trained a classifier using your selected HOG features (and color features if you used them).
 
@@ -104,6 +104,8 @@ acc = accuracy_score(y_pred, y_test)
 ### Sliding Window Search
 
 #### 1. How I implemented a sliding window search. 
+
+I design the pipeline in video.pipeline.py for the processing of video frames.
 
 I create sliding windows with 4 different scales(60x60, 70x70, 80x80 and 90x90) according to their y coordinate in the image since cars are smaller in the camera image when their distance to the camera are longer.
 

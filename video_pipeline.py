@@ -7,6 +7,7 @@ import _pickle as pickle
 from sklearn.svm import LinearSVC
 from training import featureExtraction
 from scipy.ndimage.measurements import label
+from sklearn.preprocessing import StandardScaler
 
 def generate_window_list(x_max,stride=10):
 	bboxes = []
@@ -43,16 +44,6 @@ def generate_window_list(x_max,stride=10):
 			if int(y-size) >= 0  and int(x-size) >= 0 :
 				bboxes.append([(int(x-size),int(y-size)),(int(x),int(y))])
 	
-	"""
-	ys = np.asarray(range(ystart,ystop,stride))
-	ws = 70.0*ys / 200.0 + 30.0 - 70.0*400.0/200.0
-	for i in range(len(ws)):
-		w = ws[i]
-		y = ys[i]			
-		for x in range(int(w),x_max,int(w*0.1)):
-			if w > 0 and int(y-w) >= 0  and int(x-w) >= 0 :
-				bboxes.append([(int(x-w),int(y-w)),(int(x),int(y))])
-	"""
 	return bboxes
 svc_file = open("svc_model.pickle",'rb')
 svc = pickle.load(svc_file)
@@ -73,6 +64,7 @@ def search_windows(img, windows, clf):
 		test_img = cv2.resize( img_window,(64, 64))      
 		#4) Extract features for that window using single_img_features()
 		feature = featureExtraction(test_img,cv2.COLOR_RGB2HLS, 9, 8)
+		#feature = X_scaler.transform(feature)
 		features.append(feature)
 		#5) Scale extracted features to be fed to classifier
 		# test_features = scaler.transform(np.array(features).reshape(1, -1))
@@ -135,9 +127,6 @@ def apply_threshold(heatmap, threshold):
 	# Return thresholded map
 	return heatmap
 
-#windows = slide_window(img, x_start_stop=[None, None], y_start_stop=[425,650])
-
-
 
 def draw_labeled_bboxes(img, labels):
 	
@@ -160,23 +149,7 @@ def draw_labeled_bboxes(img, labels):
 	return img, rects
 
 
-
-for file in listdir("test_images"):
-	if file.endswith(".png") or file.endswith(".jpg"):
-		img = cv2.imread("test_images/"+file)
-		img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-
-		draw_img = pipeline(img,True)
-		draw_img = cv2.cvtColor(draw_img,cv2.COLOR_BGR2RGB)
-		cv2.imshow(file,draw_img)
-		cv2.waitKey(0)
-"""
-output = "test_video_output.mp4"#"project_video_output.mp4"
-clip1 = VideoFileClip("test_video.mp4")#VideoFileClip("project_video.mp4")
-
-
-#output = "project_video_output3.mp4"
-#clip1 = VideoFileClip("project_video.mp4")
-white_clip = clip1.fl_image(pipeline)
+output = "project_video_output.mp4"
+clip = VideoFileClip("project_video.mp4")
+white_clip = clip.fl_image(pipeline)
 white_clip.write_videofile(output, audio=False)
-"""
