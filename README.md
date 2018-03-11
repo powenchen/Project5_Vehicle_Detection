@@ -39,44 +39,44 @@ Here is an example using the `HLS` color space and HOG parameters of `orientatio
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters and test the accuracy using 20% of images as test set. Here's the result:
-| ColorSpace 	| orientation 	| pix_per_cells | cell_per_block| accuracy(%) 	|
-|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| RGB			| 9 			| 4				| 2				| 96.6%			|
-| RGB			| 9 			| 8				| 2				| 96.7%			|
-| RGB			| 9 			| 12			| 2				| 97.5%			|
-| RGB			| 10 			| 4				| 2				| 96.3%			|
-| RGB			| 10 			| 8				| 2				| 96.3%			|
-| RGB			| 10 			| 12			| 2				| 97.2%			|
-| RGB			| 11 			| 4				| 2				| 96.3%			|
-| RGB			| 11 			| 8				| 2				| 96.9%			|
-| RGB			| 11 			| 12			| 2				| 97.6%			|
-| YCrCb			| 9 			| 4				| 2				| 96.9%			|
-| YCrCb			| 9 			| 8				| 2				| 97.0%			|
-| YCrCb			| 9 			| 12			| 2				| 96.3%			|
-| YCrCb			| 10 			| 4				| 2				| 97.8%			|
-| YCrCb			| 10			| 8				| 2				| 96.0%			|
-| YCrCb			| 10 			| 12			| 2				| 97.9%			|
-| YCrCb			| 11 			| 4				| 2				| 97.2%			|
-| YCrCb			| 11 			| 8				| 2				| 98.1%			|
-| YCrCb			| 11 			| 12			| 2				| 95.6%			|
-| HLS			| 9 			| 4				| 2				| 96.7%			|
-| HLS			| 9 			| 8				| 2				| 96.8%			|
-| HLS			| 9 			| 12			| 2				| 98.1%			|
-| HLS			| 10 			| 4				| 2				| 97.2%			|
-| HLS			| 10			| 8				| 2				| 96.2%			|
-| HLS			| 10 			| 12			| 2				| 97.1%			|
-| HLS			| 11 			| 4				| 2				| 96.8%			|
-| HLS			| 11 			| 8				| 2				| 97.5%			|
-| HLS			| 11 			| 12			| 2				| 97.7%			|
-| LUV			| 9 			| 4				| 2				| 96.4%			|
-| LUV			| 9 			| 8				| 2				| 96.3%			|
-| LUV			| 9 			| 12			| 2				| 96.5%			|
-| LUV			| 10 			| 4				| 2				| 97.1%			|
-| LUV			| 10			| 8				| 2				| 97.1%			|
-| LUV			| 10 			| 12			| 2				| 94.4%			|
-| LUV			| 11 			| 4				| 2				| 97.8%			|
-| LUV			| 11 			| 8				| 2				| 97.1%			|
-| LUV			| 11 			| 12			| 2				| 97.5%			|
+| ColorSpace 	| orientation 	| pix_per_cells | cell_per_block | accuracy(%) 		|
+|:-------------:|:-------------:|:-------------:|:-------------: |:----------------:|
+| RGB			| 9 			| 4				| 2				 | 96.6%			|
+| RGB			| 9 			| 8				| 2				 | 96.7%			|
+| RGB			| 9 			| 12			| 2				 | 97.5%			|
+| RGB			| 10 			| 4				| 2				 | 96.3%			|
+| RGB			| 10 			| 8				| 2				 | 96.3%			|
+| RGB			| 10 			| 12			| 2				 | 97.2%			|
+| RGB			| 11 			| 4				| 2				 | 96.3%			|
+| RGB			| 11 			| 8				| 2				 | 96.9%			|
+| RGB			| 11 			| 12			| 2				 | 97.6%			|
+| YCrCb			| 9 			| 4				| 2				 | 96.9%			|
+| YCrCb			| 9 			| 8				| 2				 | 97.0%			|
+| YCrCb			| 9 			| 12			| 2				 | 96.3%			|
+| YCrCb			| 10 			| 4				| 2				 | 97.8%			|
+| YCrCb			| 10			| 8				| 2				 | 96.0%			|
+| YCrCb			| 10 			| 12			| 2				 | 97.9%			|
+| YCrCb			| 11 			| 4				| 2				 | 97.2%			|
+| YCrCb			| 11 			| 8				| 2				 | 98.1%			|
+| YCrCb			| 11 			| 12			| 2				 | 95.6%			|
+| HLS			| 9 			| 4				| 2				 | 96.7%			|
+| HLS			| 9 			| 8				| 2				 | 96.8%			|
+| HLS			| 9 			| 12			| 2				 | 98.1%			|
+| HLS			| 10 			| 4				| 2				 | 97.2%			|
+| HLS			| 10			| 8				| 2				 | 96.2%			|
+| HLS			| 10 			| 12			| 2				 | 97.1%			|
+| HLS			| 11 			| 4				| 2				 | 96.8%			|
+| HLS			| 11 			| 8				| 2				 | 97.5%			|
+| HLS			| 11 			| 12			| 2				 | 97.7%			|
+| LUV			| 9 			| 4				| 2				 | 96.4%			|
+| LUV			| 9 			| 8				| 2				 | 96.3%			|
+| LUV			| 9 			| 12			| 2				 | 96.5%			|
+| LUV			| 10 			| 4				| 2				 | 97.1%			|
+| LUV			| 10			| 8				| 2				 | 97.1%			|
+| LUV			| 10 			| 12			| 2				 | 94.4%			|
+| LUV			| 11 			| 4				| 2				 | 97.8%			|
+| LUV			| 11 			| 8				| 2				 | 97.1%			|
+| LUV			| 11 			| 12			| 2				 | 97.5%			|
 
 Based on the accuracy and the size of the feature vector, I chose HLS color space, orientation = 11, pix_per_cells = 12 and cell_per_block = 2. 
 
